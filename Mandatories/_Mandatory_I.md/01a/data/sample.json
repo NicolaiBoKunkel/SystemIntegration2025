@@ -1,0 +1,13 @@
+{
+    "items": [
+      {
+        "name": "Item1",
+        "value": 10
+      },
+      {
+        "name": "Item2",
+        "value": 20
+      }
+    ]
+  }
+  

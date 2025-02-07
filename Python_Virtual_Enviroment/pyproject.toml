@@ -1,0 +1,17 @@
+[project]
+name = "python-virtual-enviroment"
+version = "0.1.0"
+description = ""
+authors = [
+    {name = "Nicolai Bo Kunkel",email = "nicolai@kunkel.dk"}
+]
+readme = "README.md"
+requires-python = ">=3.11"
+dependencies = [
+    "emoji (>=2.14.1,<3.0.0)"
+]
+
+
+[build-system]
+requires = ["poetry-core>=2.0.0,<3.0.0"]
+build-backend = "poetry.core.masonry.api"
