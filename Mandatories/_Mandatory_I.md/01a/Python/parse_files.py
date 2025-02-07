@@ -1,52 +1,45 @@
 import json
 import yaml
 import csv
-import xml.etree.ElementTree as ET
+import xmltodict
+import os
 
-# Read and parse a text file
+DATA_DIR = os.path.join(os.path.dirname(__file__), "../data")
+
 def parse_text(file_path):
-    with open(file_path, 'r') as f:
-        content = f.read()
-    return content
+    with open(file_path, "r", encoding="utf-8") as file:
+        return [line.strip() for line in file.readlines()]
 
-# Read and parse an XML file
-def parse_xml(file_path):
-    tree = ET.parse(file_path)
-    root = tree.getroot()
-    data = [{child.tag: child.text for child in item} for item in root.findall("item")]
-    return data
-
-# Read and parse a YAML file
-def parse_yaml(file_path):
-    with open(file_path, 'r') as f:
-        data = yaml.safe_load(f)
-    return data
-
-# Read and parse a JSON file
 def parse_json(file_path):
-    with open(file_path, 'r') as f:
-        data = json.load(f)
-    return data
+    with open(file_path, "r", encoding="utf-8") as file:
+        return json.load(file)
 
-# Read and parse a CSV file
+def parse_yaml(file_path):
+    with open(file_path, "r", encoding="utf-8") as file:
+        return yaml.safe_load(file)
+
 def parse_csv(file_path):
-    with open(file_path, newline='') as f:
-        reader = csv.DictReader(f)
-        data = [row for row in reader]
-    return data
+    with open(file_path, newline='', encoding="utf-8") as file:
+        reader = csv.DictReader(file)
+        return [row for row in reader]
 
-# File paths (adjust accordingly)
+def parse_xml(file_path):
+    with open(file_path, "r", encoding="utf-8") as file:
+        data = xmltodict.parse(file.read())  
+        if "fruits" in data and "fruit" in data["fruits"]:
+            return data["fruits"]["fruit"]  
+        return data  
+
 files = {
-    "Text": "sample.txt",
-    "XML": "sample.xml",
-    "YAML": "sample.yaml",
-    "JSON": "sample.json",
-    "CSV": "sample.csv"
+    "text": os.path.join(DATA_DIR, "sample.txt"),
+    "json": os.path.join(DATA_DIR, "sample.json"),
+    "yaml": os.path.join(DATA_DIR, "sample.yaml"),
+    "csv": os.path.join(DATA_DIR, "sample.csv"),
+    "xml": os.path.join(DATA_DIR, "sample.xml")
 }
 
-# Parsing and printing results
-print("Text File:", parse_text(files["Text"]))
-print("XML File:", parse_xml(files["XML"]))
-print("YAML File:", parse_yaml(files["YAML"]))
-print("JSON File:", parse_json(files["JSON"]))
-print("CSV File:", parse_csv(files["CSV"]))
+print("Text:", parse_text(files["text"]))
+print("JSON:", parse_json(files["json"]))
+print("YAML:", parse_yaml(files["yaml"]))
+print("CSV:", parse_csv(files["csv"]))
+print("XML:", parse_xml(files["xml"]))
