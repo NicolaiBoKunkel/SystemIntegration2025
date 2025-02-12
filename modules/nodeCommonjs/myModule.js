@@ -1,7 +1,7 @@
-class classA {
+class ClassA {
     constructor() {
-        console.log("ABC");
+        console.log("Class A initialized");
     }
 }
 
-module.exports = "something";
+module.exports = ClassA;

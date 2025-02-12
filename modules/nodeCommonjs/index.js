@@ -1,3 +1,3 @@
-import classA from "./myModule";
+const ClassA = require('./myModule.js');
 
-const classA = new classA();
+const classA = new ClassA();
