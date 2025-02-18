@@ -4,8 +4,18 @@ import yaml
 import csv
 import xmltodict
 import os
+import requests
+from fastapi.responses import JSONResponse
 
 app = FastAPI()
+
+SERVER_B_URL = "http://localhost:5001"
+
+@app.get("/proxy/{filetype}")
+def proxy_to_server_b(filetype: str):
+    """Fetches data from Server B and returns it."""
+    response = requests.get(f"{SERVER_B_URL}/{filetype}")
+    return JSONResponse(content=response.json())
 
 DATA_DIR = os.path.join(os.path.dirname(__file__), "../data")
 
