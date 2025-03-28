@@ -1,4 +1,4 @@
-# Exposee Doc – MongoDB
+# Exposee Doc – MongoDB (Produceret til opgave-partner)
 ## Dine opgaver
 - Forbind til databasen med de forskellige brugere.
 - Test selv hvad du kan og ikke kan som hver bruger.
