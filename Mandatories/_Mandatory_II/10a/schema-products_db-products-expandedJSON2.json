@@ -1,0 +1,176 @@
+{
+  "type": "object",
+  "x-bsonType": "object",
+  "required": [
+    "_id",
+    "__v",
+    "category",
+    "createdAt",
+    "description",
+    "imageUrl",
+    "name",
+    "price",
+    "stock",
+    "updatedAt"
+  ],
+  "properties": {
+    "_id": {
+      "$ref": "#/$defs/ObjectId",
+      "x-bsonType": "objectId",
+      "x-metadata": {
+        "hasDuplicates": false,
+        "probability": 1,
+        "count": 2
+      },
+      "x-sampleValues": [
+        "67fe7d64a1d38a5f2323cdbd",
+        "67fe7c14a1d38a5f2323cdba"
+      ]
+    },
+    "__v": {
+      "type": "integer",
+      "x-bsonType": "int",
+      "x-metadata": {
+        "hasDuplicates": true,
+        "probability": 1,
+        "count": 2
+      },
+      "x-sampleValues": [
+        0,
+        0
+      ]
+    },
+    "category": {
+      "type": "string",
+      "x-bsonType": "string",
+      "x-metadata": {
+        "hasDuplicates": false,
+        "probability": 1,
+        "count": 2
+      },
+      "x-sampleValues": [
+        "Candy",
+        "Soda"
+      ]
+    },
+    "createdAt": {
+      "$ref": "#/$defs/Date",
+      "x-bsonType": "date",
+      "x-metadata": {
+        "hasDuplicates": false,
+        "probability": 1,
+        "count": 2
+      },
+      "x-sampleValues": [
+        "2025-04-15T15:38:12.435Z",
+        "2025-04-15T15:32:36.373Z"
+      ]
+    },
+    "description": {
+      "type": "string",
+      "x-bsonType": "string",
+      "x-metadata": {
+        "hasDuplicates": false,
+        "probability": 1,
+        "count": 2
+      },
+      "x-sampleValues": [
+        "With sugar",
+        "Zero sugar"
+      ]
+    },
+    "imageUrl": {
+      "type": "string",
+      "x-bsonType": "string",
+      "x-metadata": {
+        "hasDuplicates": false,
+        "probability": 1,
+        "count": 2
+      },
+      "x-sampleValues": [
+        "candybar.jpg",
+        "pepsimax.jpg"
+      ]
+    },
+    "name": {
+      "type": "string",
+      "x-bsonType": "string",
+      "x-metadata": {
+        "hasDuplicates": false,
+        "probability": 1,
+        "count": 2
+      },
+      "x-sampleValues": [
+        "Candy bar",
+        "Pepsi Max"
+      ]
+    },
+    "price": {
+      "type": "integer",
+      "x-bsonType": "int",
+      "x-metadata": {
+        "hasDuplicates": false,
+        "probability": 1,
+        "count": 2
+      },
+      "x-sampleValues": [
+        8,
+        12
+      ]
+    },
+    "stock": {
+      "type": "integer",
+      "x-bsonType": "int",
+      "x-metadata": {
+        "hasDuplicates": false,
+        "probability": 1,
+        "count": 2
+      },
+      "x-sampleValues": [
+        91,
+        112
+      ]
+    },
+    "updatedAt": {
+      "$ref": "#/$defs/Date",
+      "x-bsonType": "date",
+      "x-metadata": {
+        "hasDuplicates": false,
+        "probability": 1,
+        "count": 2
+      },
+      "x-sampleValues": [
+        "2025-04-15T15:38:12.435Z",
+        "2025-04-15T15:32:36.373Z"
+      ]
+    }
+  },
+  "$defs": {
+    "ObjectId": {
+      "type": "object",
+      "properties": {
+        "$oid": {
+          "type": "string",
+          "pattern": "^[0-9a-fA-F]{24}$"
+        }
+      },
+      "required": [
+        "$oid"
+      ],
+      "additionalProperties": false
+    },
+    "Date": {
+      "type": "object",
+      "properties": {
+        "$date": {
+          "type": "string",
+          "format": "date-time"
+        }
+      },
+      "required": [
+        "$date"
+      ],
+      "additionalProperties": false
+    }
+  }
+}

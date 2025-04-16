@@ -1,5 +1,5 @@
 {
-  "name": "mandatory_ii",
+  "name": "01._node",
   "version": "1.0.0",
   "main": "index.js",
   "scripts": {
@@ -10,6 +10,8 @@
   "license": "ISC",
   "description": "",
   "dependencies": {
-    "ws": "^8.18.1"
-  }
+    "express": "^5.1.0",
+    "multer": "^1.4.5-lts.2"
+  },
+  "type": "module"
 }

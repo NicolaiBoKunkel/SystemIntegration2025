@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Forms</title>
+</head>
+<body>
+    <h2>Basic Form</h2>    
+    <form action="http://localhost:8000/form" method="POST">
+        <label for="username">Username</label>
+        <input type="text" name="username">
+
+        <label for="passwprd">Password</label>
+        <input type="password" name="password">
+
+        <input type="submit" value="Send Form Data">
+    </form>
+
+    <h2>File Form</h2>
+    <form action="http://localhost:8000/fileform" method="POST">
+        <label for="file">File</label>
+        <input type="file" name="file">
+
+        <label>Description</label>
+        <input type="text" name="description">
+
+        <input type="submit" value="Send file"> 
+    </form>
+
+    <script>
+        const fileinput = document.querySelector('input[type="file"]');
+
+        fileinput.addEventListener('change', (event) => {
+            const file = e.target.files[0];
+
+
+            const validTypes = ['image/jpeg', 'image/png', 'image/svg'];
+
+            if (!validTypes.indexOf(file.type) === -1) {
+                alert('Invalid file type!');
+                fileinput.value = '';
+                return;
+            }
+
+            const maxSize = 20 * 1024 * 1024;
+            if (file.size > maxSize) {
+                alert('File is too large!');
+            }
+        });
+    </script>
+</body>
+</html>
