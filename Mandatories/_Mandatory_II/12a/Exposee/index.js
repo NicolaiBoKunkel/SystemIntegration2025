@@ -88,6 +88,7 @@ app.get('/ping', async (req, res) => {
   
     res.json({
       message: 'Ping complete',
+      sentEvent: payload,
       results
     });
 });
