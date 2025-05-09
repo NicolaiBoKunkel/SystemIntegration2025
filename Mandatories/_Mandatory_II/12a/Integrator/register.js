@@ -2,7 +2,7 @@ const axios = require('axios');
 
 const registerWebhook = async () => {
   const payload = {
-    url: 'https://PARTNER_WEBHOOK_URL.loca.lt/webhook',
+    url: 'https://WEBHOOK_URL.loca.lt/webhook',
     events: ['invoice_paid', 'invoice_created']
   };
 
