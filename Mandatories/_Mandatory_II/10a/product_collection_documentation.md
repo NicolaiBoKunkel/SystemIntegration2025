@@ -2,7 +2,7 @@
 
 ## Collection Name: `products`
 
-This collection stores information about products listed on the e-commerce platform. Each document represents one product and contains key data such as name, price, stock, and category. The collection also tracks when each product was created or updated.
+This collection stores information about products listed on my e-commerce platform. Each document represents one product and contains key data such as name, price, stock, and category. The collection also tracks when each product was created or updated.
 
 ---
 

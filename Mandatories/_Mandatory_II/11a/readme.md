@@ -1,4 +1,4 @@
-As part of the hand-in for assignment 11a, here is my documentation that the setup process i followed.
+As part of the hand-in for assignment 11a, here is my documentation for the setup process that i followed.
 
 # Firebase Authentication with React & TypeScript
 
