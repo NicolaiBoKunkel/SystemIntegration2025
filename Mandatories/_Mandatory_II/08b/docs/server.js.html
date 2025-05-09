@@ -1,0 +1,181 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <title>JSDoc: Source: server.js</title>
+
+    <script src="scripts/prettify/prettify.js"> </script>
+    <script src="scripts/prettify/lang-css.js"> </script>
+    <!--[if lt IE 9]>
+      <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+    <link type="text/css" rel="stylesheet" href="styles/prettify-tomorrow.css">
+    <link type="text/css" rel="stylesheet" href="styles/jsdoc-default.css">
+</head>
+
+<body>
+
+<div id="main">
+
+    <h1 class="page-title">Source: server.js</h1>
+
+    
+
+
+
+    
+    <section>
+        <article>
+            <pre class="prettyprint source linenums"><code>/**
+ * @file Product Service API
+ * @description Handles CRUD operations for products, including soft deletion.
+ * @requires express
+ * @requires mongoose
+ * @requires cors
+ */
+
+require("dotenv").config();
+const express = require("express");
+const mongoose = require("mongoose");
+const Product = require("./models/Product");
+const cors = require("cors");
+const { authenticateToken, requireAdmin } = require("./middleware/auth");
+
+const app = express();
+app.use(cors());
+app.use(express.json());
+
+const PORT = process.env.PORT || 5002;
+const MONGO_URI = process.env.MONGO_URI || "mongodb://localhost:27017/products_db";
+
+/**
+ * Connect to MongoDB and start the server
+ */
+mongoose
+  .connect(MONGO_URI)
+  .then(() => {
+    console.log("Connected to MongoDB");
+    app.listen(PORT, () => console.log(`Product Service running on port ${PORT}`));
+  })
+  .catch((err) => console.error("MongoDB connection error:", err));
+
+/**
+ * @route GET /products
+ * @desc Fetch all products (excluding deleted unless `includeDeleted=true` is passed)
+ * @access Public
+ */
+app.get("/products", async (req, res) => {
+  const includeDeleted = req.query.includeDeleted === "true";
+  const filter = includeDeleted ? {} : { isDeleted: false };
+  try {
+    const products = await Product.find(filter);
+    res.json(products);
+  } catch (err) {
+    res.status(500).json({ error: err.message });
+  }
+});
+
+/**
+ * @route POST /products
+ * @desc Create a new product
+ * @access Admin only
+ */
+app.post("/products", authenticateToken, requireAdmin, async (req, res) => {
+  const { name, description, price, stock, category, imageUrl } = req.body;
+  try {
+    const product = await Product.create({ name, description, price, stock, category, imageUrl });
+    res.status(201).json(product);
+  } catch (err) {
+    res.status(400).json({ error: err.message });
+  }
+});
+
+/**
+ * @route GET /products/:id
+ * @desc Get a product by ID (only if not soft-deleted)
+ * @access Public
+ */
+app.get("/products/:id", async (req, res) => {
+  try {
+    const product = await Product.findOne({ _id: req.params.id, isDeleted: false });
+    if (!product) return res.status(404).json({ message: "Product not found" });
+    res.json(product);
+  } catch (err) {
+    res.status(400).json({ message: "Invalid ID", error: err.message });
+  }
+});
+
+/**
+ * @route PUT /products/:id
+ * @desc Update a product
+ * @access Admin only
+ */
+app.put("/products/:id", authenticateToken, requireAdmin, async (req, res) => {
+  try {
+    const updated = await Product.findByIdAndUpdate(req.params.id, req.body, {
+      new: true,
+      runValidators: true
+    });
+    if (!updated) return res.status(404).json({ message: "Product not found" });
+    res.json(updated);
+  } catch (err) {
+    res.status(400).json({ message: "Update failed", error: err.message });
+  }
+});
+
+/**
+ * @route DELETE /products/:id
+ * @desc Soft-delete (tombstone) a product
+ * @access Admin only
+ */
+app.delete("/products/:id", authenticateToken, requireAdmin, async (req, res) => {
+  try {
+    const deleted = await Product.findByIdAndUpdate(
+      req.params.id,
+      { isDeleted: true },
+      { new: true }
+    );
+    if (!deleted) return res.status(404).json({ message: "Product not found" });
+    res.json({ message: "Product marked as deleted" });
+  } catch (err) {
+    res.status(400).json({ message: "Delete failed", error: err.message });
+  }
+});
+
+/**
+ * @route GET /internal/products/:id
+ * @desc Get product by ID even if soft-deleted (used for internal service communication)
+ * @access Internal
+ */
+app.get("/internal/products/:id", async (req, res) => {
+  try {
+    const product = await Product.findById(req.params.id);
+    if (!product) return res.status(404).json({ message: "Product not found" });
+    res.json(product);
+  } catch (err) {
+    res.status(500).json({ error: err.message });
+  }
+});
+</code></pre>
+        </article>
+    </section>
+
+
+
+
+</div>
+
+<nav>
+    <h2><a href="index.html">Home</a></h2><h3>Global</h3><ul><li><a href="global.html#authenticateToken">authenticateToken</a></li><li><a href="global.html#requireAdmin">requireAdmin</a></li></ul>
+</nav>
+
+<br class="clear">
+
+<footer>
+    Documentation generated by <a href="https://github.com/jsdoc/jsdoc">JSDoc 4.0.4</a> on Fri May 09 2025 22:05:52 GMT+0200 (Centraleuropæisk sommertid)
+</footer>
+
+<script> prettyPrint(); </script>
+<script src="scripts/linenumber.js"> </script>
+</body>
+</html>
